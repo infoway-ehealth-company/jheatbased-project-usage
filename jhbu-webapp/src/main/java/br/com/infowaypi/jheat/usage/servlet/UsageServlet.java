@@ -1,8 +1,8 @@
-package br.com.infowaypi.jheatbased.usage.servlet;
+package br.com.infowaypi.jheat.usage.servlet;
 
-import static br.com.infowaypi.jheatbased.usage.api.UsageData.FLUXO;
-import static br.com.infowaypi.jheatbased.usage.api.UsageData.FUNCAO;
-import static br.com.infowaypi.jheatbased.usage.api.UsageData.SECAO;
+import static br.com.infowaypi.jheat.usage.api.UsageData.FLUXO;
+import static br.com.infowaypi.jheat.usage.api.UsageData.FUNCAO;
+import static br.com.infowaypi.jheat.usage.api.UsageData.SECAO;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import br.com.infowaypi.jheatbased.usage.api.Result;
-import br.com.infowaypi.jheatbased.usage.api.UsageData;
-import br.com.infowaypi.jheatbased.usage.storage.CumulativeRequests;
+import br.com.infowaypi.jheat.usage.api.Result;
+import br.com.infowaypi.jheat.usage.api.UsageData;
+import br.com.infowaypi.jheat.usage.storage.CumulativeRequests;
 
 public class UsageServlet extends HttpServlet {
 
