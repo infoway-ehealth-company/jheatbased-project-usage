@@ -1,3 +1,60 @@
+(function ( $ ) {
+	
+	$.fn.jhbumap = function(options) {
+		
+		var sectionName;
+		var flowName
+		var splitUrlParamsBy = '='
+
+		var settings = $.extend({
+          		 app_url: window.location,
+           		 params: window.location.search.substring(1).split('&'),
+			 user: "",
+			 role: "",
+			 client: "iHealth",
+			 sectionNameVar:'sectionName',
+  			 flowNameVar:'flowName'
+       		 }, options );	
+		
+		params = settings.params;
+		for(i = 0; i < params.length; i++){ 
+
+		    var arg = params[i].split(splitUrlParamsBy); 
+		   
+		    if(arg[0] == settings.sectionNameVar){
+		    	
+		    	sectionName = arg[1];
+		    }
+		    
+		    if(arg[0]== settings.flowNameVar){
+		    	
+		    	flowName = arg[1];
+		    }
+
+		    var obj = new UrlMap(flowName, sectionName, "${usuario.role}");
+
+		    console.log("mapping: "+obj);
+		}		
+		
+		return this;
+ 	};
+}( jQuery ));
+
+function UrlMap(flow, secao, funcao){
+	
+	this.flow = flow;
+	this.secao = secao;
+	this.funcao = funcao;
+
+}
+
+
+//$(document).jhbumap({
+	
+//	role:"${usuario.role}"
+//});
+
+/*
 function UrlMap(flow, secao, funcao){
 					
 					this.flow = flow;
@@ -80,3 +137,4 @@ function UrlMap(flow, secao, funcao){
 					    	}
 							
 					//});
+*/
