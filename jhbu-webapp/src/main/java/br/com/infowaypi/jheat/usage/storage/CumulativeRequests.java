@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import br.com.infowaypi.jheat.usage.api.UsageData;
 
@@ -13,7 +14,7 @@ import br.com.infowaypi.jheat.usage.api.UsageData;
  * 
  * @since 28/03/2015
  */
-public class CumulativeRequests {
+public class CumulativeRequests extends Observable{
 	
 	/**
 	 * Mapa para gravação das estatísticas dos respectivos fluxos. Possui tamanho máximo definido - para limite de uso de memória -
