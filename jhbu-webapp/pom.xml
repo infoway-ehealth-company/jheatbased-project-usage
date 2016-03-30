@@ -29,6 +29,11 @@
 	 	<artifactId>jhbu-api</artifactId>
 	 	<version>${project.version}</version>
 	 </dependency>
+	 <dependency>
+	 	<groupId>br.com.infowaypi.jheat</groupId>
+	 	<artifactId>jhbu-reports</artifactId>
+	 	<version>${project.version}</version>
+	 </dependency>
   </dependencies>
   
   <build>

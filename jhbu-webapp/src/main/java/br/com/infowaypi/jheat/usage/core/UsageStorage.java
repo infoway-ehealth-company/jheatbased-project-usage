@@ -1,4 +1,4 @@
-package br.com.infowaypi.jheat.usage.storage;
+package br.com.infowaypi.jheat.usage.core;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -14,32 +14,45 @@ import br.com.infowaypi.jheat.usage.api.UsageData;
  * 
  * @since 28/03/2015
  */
-public class CumulativeRequests extends Observable{
+public class UsageStorage extends Observable{
 	
 	/**
 	 * Mapa para gravação das estatísticas dos respectivos fluxos. Possui tamanho máximo definido - para limite de uso de memória -
 	 * permitindo um total de 100 features mapeadas.
 	 */
 	private Map<UsageData, BigInteger> stats = new HashMap<>();
-	private static CumulativeRequests storage = new CumulativeRequests();
+	private static UsageStorage storage = new UsageStorage();
 	/**
 	 * Data de início da contagem de acessos. Atribuída uma vez, quando da inicialização do container de aplicação e instanciação
-	 * do singleton CumulativeRequests.
+	 * do singleton UsageStorage.
 	 */
 	private final Date startDate = new Date();
 	private Date endDate;
 	
-	private CumulativeRequests(){
-	}
+	/**
+	 * Índice a ser incrementado a cada novo registro de requisição gravado
+	 */
+	private int acc;
+	/**
+	 * Número máximo de novos registros pré report. Funciona como um gatilho para os reports.
+	 */
+	private int maxAcc;
 	
-	public static CumulativeRequests getInstance(){
+	private UsageStorage(){}
+	
+	public static UsageStorage getInstance(){
 		return storage;
 	}
 	
 	public boolean storeUsageData(UsageData usageData){
 		synchronized (stats) {
 			BigInteger value = this.stats.containsKey(usageData) ? stats.get(usageData).add(BigInteger.valueOf(1l)) : BigInteger.valueOf(1l);
-			stats.put(usageData, value); 
+			stats.put(usageData, value);
+			acc++;
+			if(acc >= maxAcc){
+				notifyObservers();
+				acc = 0;
+			}
 		}
 		return true;
 	}
