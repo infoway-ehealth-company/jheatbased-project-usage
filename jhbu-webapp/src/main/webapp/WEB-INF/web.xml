@@ -9,4 +9,7 @@
 		<servlet-name>UsageServlet</servlet-name>
 		<servlet-class>br.com.infowaypi.usage.UsageServlet</servlet-class>
 	</servlet>
+	<listener>
+		<listener-class>br.com.infowaypi.jheat.usage.core.InstanceContextListener</listener-class>
+	</listener>
 </web-app>

@@ -8,6 +8,9 @@
         <dependent-module archiveName="jhbu-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jhbu-api/jhbu-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jhbu-reports-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jhbu-reports/jhbu-reports">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/jhbu-webapp/target/classes"/>
         <property name="context-root" value="jhbu-webapp"/>
     </wb-module>
