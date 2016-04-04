@@ -14,14 +14,13 @@ import br.com.infowaypi.jheat.usage.api.UsageData;
  * 
  * @since 28/03/2015
  */
-public class UsageStorage extends Observable{
+class UsageStorage extends Observable{
 	
 	/**
 	 * Mapa para gravação das estatísticas dos respectivos fluxos. Possui tamanho máximo definido - para limite de uso de memória -
 	 * permitindo um total de 100 features mapeadas.
 	 */
-	private Map<UsageData, BigInteger> stats = new HashMap<>();
-	private static UsageStorage storage = new UsageStorage();
+	private Map<UsageData, BigInteger> stats = new HashMap<UsageData, BigInteger>();
 	/**
 	 * Data de início da contagem de acessos. Atribuída uma vez, quando da inicialização do container de aplicação e instanciação
 	 * do singleton UsageStorage.
@@ -37,12 +36,6 @@ public class UsageStorage extends Observable{
 	 * Número máximo de novos registros pré report. Funciona como um gatilho para os reports.
 	 */
 	private int maxAcc;
-	
-	private UsageStorage(){}
-	
-	public static UsageStorage getInstance(){
-		return storage;
-	}
 	
 	public boolean storeUsageData(UsageData usageData){
 		synchronized (stats) {

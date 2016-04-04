@@ -5,22 +5,21 @@ import javax.servlet.ServletContextListener;
 
 public class InstanceContextListener implements ServletContextListener{
 	
-	private Thread threadMonitor;
-	private ReportManager reportManager = new ReportManager();
+//	private Thread threadMonitor;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		
-		if(!threadMonitor.isInterrupted())
-			threadMonitor.interrupt();
+//		AppManager.getInstance().update();
+//		if(!threadMonitor.isInterrupted())
+//			threadMonitor.interrupt();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		if(threadMonitor == null || !threadMonitor.isAlive()){
-			threadMonitor = new Thread(new UsageMonitor());
-			threadMonitor.start();
-		}
+//		if(threadMonitor == null || !threadMonitor.isAlive()){
+//			threadMonitor = new Thread();
+//			threadMonitor.start();
+//		}
 	}
 
 }

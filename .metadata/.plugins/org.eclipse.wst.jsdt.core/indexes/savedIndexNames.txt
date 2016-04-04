@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+C:\Users\Ismael Sarmento\git\jheatbased-project-usage\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+845741717.index
+3931465281.index
+1821461584.index
+2976881083.index
+2444964112.index
+385148724.index

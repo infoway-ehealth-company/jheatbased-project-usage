@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.google.api.client.http.HttpRequestFactory"/>
+<fullyQualifiedTypeName name="com.google.api.client.http.HttpResponse"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl"/>
+<fullyQualifiedTypeName name="java.net.URLConnection"/>
+<fullyQualifiedTypeName name="com.google.api.client.googleapis.javanet.GoogleNetHttpTransport"/>
+<fullyQualifiedTypeName name="com.google.api.client.json.JsonFactory"/>
+<fullyQualifiedTypeName name="com.google.api.client.googleapis.auth.oauth2.GoogleCredential"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.Service.GDataRequestFactory"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.http.HttpGDataRequest"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.http.HttpGDataRequest.Factory"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.AuthTokenFactory.AuthToken"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.GoogleAuthTokenFactory"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.GoogleAuthTokenFactory.UserToken"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.http.HttpUrlConnectionSource"/>
+<fullyQualifiedTypeName name="com.google.gdata.client.http.JdkHttpUrlConnectionSource"/>
+<fullyQualifiedTypeName name="com.google.gdata.data.spreadsheet.ListEntry"/>
+<fullyQualifiedTypeName name="com.google.gdata.data.spreadsheet.WorksheetFeed"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="br.com.infowaypi.jheat.usage.core.ReportManager"/>
+<fullyQualifiedTypeName name="br.com.infowaypi.jheat.usage.core.UsageStorage"/>
+<fullyQualifiedTypeName name="br.com.infowaypi.jheat.usage.core.AppManager"/>
+<fullyQualifiedTypeName name="br.com.infowaypi.jheat.usage.reports.UsageReportEngine"/>
+</qualifiedTypeNameHistroy>

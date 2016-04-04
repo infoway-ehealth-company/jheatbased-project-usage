@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import br.com.infowaypi.jheat.usage.api.Result;
 import br.com.infowaypi.jheat.usage.api.UsageData;
-import br.com.infowaypi.jheat.usage.core.UsageStorage;
+import br.com.infowaypi.jheat.usage.core.AppManager;
+
+import com.google.gson.Gson;
 
 public class UsageServlet extends HttpServlet {
 
@@ -29,14 +29,14 @@ public class UsageServlet extends HttpServlet {
 		String secao = req.getParameter(SECAO);
 		String fluxo = req.getParameter(FLUXO);
 		UsageData usageData = new UsageData(funcao, secao, fluxo);
-		boolean result = UsageStorage.getInstance().storeUsageData(usageData );
+		boolean result = AppManager.getInstance().storeUsageData(usageData );
 		resp.getWriter().write(new Gson().toJson(new Result( String.valueOf(result), 
 				HttpServletResponse.SC_OK, usageData)));
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<UsageData, BigInteger> stats = UsageStorage.getInstance().getStats();
+		Map<UsageData, BigInteger> stats = AppManager.getInstance().getStats();
 		String json = new Gson().toJson(stats);
 		resp.getWriter().write(json);
 	}

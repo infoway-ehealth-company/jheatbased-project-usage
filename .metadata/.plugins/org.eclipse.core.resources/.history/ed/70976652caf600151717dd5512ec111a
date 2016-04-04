@@ -1,0 +1,123 @@
+package br.com.infowaypi.jheat.usage.reports;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
+
+import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.gdata.client.authn.oauth.OAuthException;
+import com.google.gdata.client.spreadsheet.SpreadsheetService;
+import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
+import com.google.gdata.data.spreadsheet.SpreadsheetFeed;
+import com.google.gdata.data.spreadsheet.WorksheetEntry;
+import com.google.gdata.util.AuthenticationException;
+import com.google.gdata.util.ServiceException;
+
+/**
+ * Envia os dados para uma planilha google de acordo com a configuração do
+ * cliente
+ * 
+ * @since 03/2016
+ */
+public class GoogleSpreadsheetReport implements UsageReportEngine {
+
+	private static final String CLIENT_ID = "233529998695-3vm4mludumejiq7h6kolpd58ibarun8n.apps.googleusercontent.com";
+	private static final String CLIENT_SECRET = "xmSIRhFt8GdUzchCbA4xEn9o";
+	private static final String SPREADSHEET = "https://docs.google.com/a/infoway-pi.com.br/spreadsheets/d/1w62GekTQpPhVcVQfijfsgIpeaAoFNaNV8JeRFnos270";
+	private static final String SCOPE = "https://spreadsheets.google.com/feeds";
+	private static final String REDIRECT_URI = "";
+
+	public void updateGoogleSpreadsheet(Object arg1)
+			throws AuthenticationException, MalformedURLException, IOException,
+			ServiceException {
+		SpreadsheetService spreadsheetService = new SpreadsheetService(
+				"jheatbased-usage");
+		spreadsheetService.setProtocolVersion(SpreadsheetService.Versions.V3);
+		URL sheetURL = new URL(SCOPE);
+		SpreadsheetFeed feed = spreadsheetService.getFeed(sheetURL,
+				SpreadsheetFeed.class);
+		SpreadsheetEntry sheet = feed.getEntries().iterator().next();
+		List<WorksheetEntry> worksheets = sheet.getWorksheets();
+		for (WorksheetEntry worksheetEntry : worksheets) {
+			System.out.println(worksheetEntry.getTitle().getPlainText());
+		}
+	}
+
+	public static void main(String[] args) throws IOException,
+			ServiceException, OAuthException {
+		HttpTransport transport = new ApacheHttpTransport();
+		// Credential credential =new
+		// Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken("233529998695-3vm4mludumejiq7h6kolpd58ibarun8n.apps.googleusercontent.com");
+		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+				new NetHttpTransport(), new JacksonFactory(), CLIENT_ID,
+				CLIENT_SECRET, Collections.singleton(SCOPE)).build();
+		Credential credential = flow
+				.loadCredential("ismaelx@infoway-pi.com.br");
+		HttpRequestFactory requestFactory = transport
+				.createRequestFactory(credential);
+		GenericUrl url = new GenericUrl(SPREADSHEET);
+		HttpResponse response = requestFactory.buildGetRequest(url).execute();
+
+		System.out.println(getStringFromInputStream( response.getContent()));
+
+		// GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
+		// url.setRedirectUri("http://localhost:8080/test");
+		// URLConnection connection = new URL(url.toString()).openConnection();
+		// connection.
+		System.out.println(url);
+	}
+
+	private static String getStringFromInputStream(InputStream is) {
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		String line;
+		try {
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return sb.toString();
+	}
+
+	public void proceedAuthorization(Object arg1) {
+
+	}
+
+	protected AuthorizationCodeFlow initializeFlow() throws IOException {
+		return new GoogleAuthorizationCodeFlow.Builder(new NetHttpTransport(),
+				new JacksonFactory(), CLIENT_ID, CLIENT_SECRET,
+				Collections.singleton(SCOPE)).build();
+		// .setDataStoreFactory().setAccessType("offline").build();
+	}
+
+	public void update(Observable arg0, Object arg1) {
+
+	}
+
+}
