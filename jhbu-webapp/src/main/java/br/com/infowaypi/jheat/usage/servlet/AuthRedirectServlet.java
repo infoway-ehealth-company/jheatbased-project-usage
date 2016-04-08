@@ -16,8 +16,7 @@ public class AuthRedirectServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("report_engine_id");
-		ReportManager.getInstance().registerReportEngine(reportEngineId, reportEngine);
-		super.doGet(req, resp);
+//		ReportManager.getInstance().registerReportEngine(reportEngineId, reportEngine);
 	}
 
 }
