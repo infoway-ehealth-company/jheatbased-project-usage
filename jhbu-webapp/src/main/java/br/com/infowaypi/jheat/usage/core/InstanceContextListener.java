@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 public class InstanceContextListener implements ServletContextListener{
 	
 	private Thread threadMonitor;
-	private ReportManager reportManager = new ReportManager();
+	private ReportManager reportManager;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -18,7 +18,8 @@ public class InstanceContextListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		if(threadMonitor == null || !threadMonitor.isAlive()){
-			threadMonitor = new Thread(new UsageMonitor());
+			threadMonitor = new Thread(//new UsageMonitor()
+					);
 			threadMonitor.start();
 		}
 	}
