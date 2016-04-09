@@ -362,8 +362,8 @@ public class WorksheetDemo {
    *         username and password.
    */
   public static void main(String[] args) throws AuthenticationException {
-    String username = "ismael@infoway-pi.com.br";
-    String password = "qawsed123";
+    String username = "";
+    String password = "";
     boolean help = false;
 
     if (help || username == null || password == null) {
