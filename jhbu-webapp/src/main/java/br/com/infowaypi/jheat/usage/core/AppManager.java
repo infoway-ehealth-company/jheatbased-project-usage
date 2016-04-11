@@ -1,6 +1,5 @@
 package br.com.infowaypi.jheat.usage.core;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class AppManager {
 		return storage.storeUsageData(usageData);
 	}
 
-	public Map<UsageData, BigInteger> getStats() {
+	public Map<Integer, UsageData> getStats() {
 		return storage.getStats();
 	}
 }

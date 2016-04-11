@@ -1,9 +1,11 @@
 package br.com.infowaypi.jheat.usage.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigInteger;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.google.gson.Gson;
 
-import sun.org.mozilla.javascript.json.JsonParser;
 
 public class UsageData {
 
@@ -15,6 +17,7 @@ public class UsageData {
 	private String funcao;
 	private String secao;
 	private String fluxo;
+	private BigInteger requisicoes = BigInteger.ZERO;
 
 	public UsageData() {
 		super();
@@ -51,6 +54,14 @@ public class UsageData {
 		this.fluxo = fluxo;
 	}
 
+	public BigInteger getRequisicoes() {
+		return requisicoes;
+	}
+
+	public void setRequisicoes(BigInteger requisicoes) {
+		this.requisicoes = requisicoes;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof UsageData))
@@ -67,8 +78,7 @@ public class UsageData {
 
 	@Override
 	public int hashCode() {
-		
-		return super.hashCode();
+		return new HashCodeBuilder(17, 37).append(this.funcao).append(this.secao).append(this.fluxo).toHashCode();
 	}
 
 	@Override
@@ -82,5 +92,5 @@ public class UsageData {
 //		return sb.toString();
 		return new Gson().toJson(this);
 	}
-	
+
 }

@@ -5,7 +5,6 @@ import static br.com.infowaypi.jheat.usage.api.UsageData.FUNCAO;
 import static br.com.infowaypi.jheat.usage.api.UsageData.SECAO;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -36,7 +35,7 @@ public class UsageServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<UsageData, BigInteger> stats = AppManager.getInstance().getStats();
+		Map<Integer, UsageData> stats = AppManager.getInstance().getStats();
 		String json = new Gson().toJson(stats);
 		resp.getWriter().write(json);
 	}

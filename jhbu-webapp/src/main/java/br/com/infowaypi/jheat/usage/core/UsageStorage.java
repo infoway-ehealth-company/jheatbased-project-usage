@@ -20,7 +20,7 @@ public class UsageStorage extends Observable{
 	 * Mapa para gravação das estatísticas dos respectivos fluxos. Possui tamanho máximo definido - para limite de uso de memória -
 	 * permitindo um total de 100 features mapeadas.
 	 */
-	private Map<UsageData, BigInteger> stats = new HashMap<UsageData, BigInteger>();
+	private Map<Integer, UsageData> stats = new HashMap<Integer, UsageData>();
 	/**
 	 * Data de início da contagem de acessos. Atribuída uma vez, quando da inicialização do container de aplicação e instanciação
 	 * do singleton UsageStorage.
@@ -39,8 +39,14 @@ public class UsageStorage extends Observable{
 	
 	protected boolean storeUsageData(UsageData usageData){
 		synchronized (stats) {
-			BigInteger value = this.stats.containsKey(usageData) ? stats.get(usageData).add(BigInteger.valueOf(1l)) : BigInteger.valueOf(1l);
-			stats.put(usageData, value);
+			int key = usageData.hashCode();
+			UsageData data = this.stats.get(key);
+			if(data != null){
+				data.setRequisicoes(data.getRequisicoes().add(BigInteger.valueOf(1l)));
+			} else {
+				usageData.setRequisicoes(usageData.getRequisicoes().add(BigInteger.valueOf(1l)));
+				stats.put(key, usageData);
+			}
 			acc++;
 			if(acc >= maxAcc){
 				notifyObservers();
@@ -50,7 +56,7 @@ public class UsageStorage extends Observable{
 		return true;
 	}
 	
-	protected Map<UsageData, BigInteger> getStats(){
+	protected Map<Integer, UsageData> getStats(){
 		return this.stats;
 	}
 
