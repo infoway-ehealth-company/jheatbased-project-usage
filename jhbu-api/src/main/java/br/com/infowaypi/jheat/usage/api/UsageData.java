@@ -12,6 +12,8 @@ public class UsageData {
 	public static final String FUNCAO = "funcao";
 	public static final String SECAO = "secao";
 	public static final String FLUXO = "fluxo";
+	public static final String PROJECT_ID = "project-id";
+	public static final String DATA = "data";
 	public static final String SEPARATOR = ",";
 
 	private String funcao;

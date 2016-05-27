@@ -12,7 +12,7 @@ import br.com.infowaypi.jheat.usage.api.UsageData;
  * Contém o mapa com dados estatísticos acumulados dentro do ciclo. Dado que este projeto não utiliza banco de dados, com vista à simplicidade,
  * o ciclo de storage dos dados é iniciado com o lançamento do container de aplicação e finaliza com o desligamento deste.
  * 
- * @since 28/03/2015
+ * @since 28/03/2016
  */
 public class UsageStorage extends Observable{
 	
@@ -38,6 +38,7 @@ public class UsageStorage extends Observable{
 	private int maxAcc;
 	
 	protected boolean storeUsageData(UsageData usageData){
+		boolean retVal = false;
 		synchronized (stats) {
 			int key = usageData.hashCode();
 			UsageData data = this.stats.get(key);
@@ -47,13 +48,14 @@ public class UsageStorage extends Observable{
 				usageData.setRequisicoes(usageData.getRequisicoes().add(BigInteger.valueOf(1l)));
 				stats.put(key, usageData);
 			}
+			retVal = true;
 			acc++;
 			if(acc >= maxAcc){
 				notifyObservers();
 				acc = 0;
 			}
 		}
-		return true;
+		return retVal;
 	}
 	
 	protected Map<Integer, UsageData> getStats(){

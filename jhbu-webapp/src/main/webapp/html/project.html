@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Uso projeto</title>
+	</head>
+	<body>
+		<div id="header"></div>
+		<div id="content">
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				if(history.state){
+					var projId = history.state.projectid;
+					$.ajax({
+						url: 'usage?project-id='+projId
+					}).done(function(result){
+						var resObj = JSON.parse(result);
+						if(resObj.httpCode = "200"){
+							var table = new EJS({url:"templates/usage-table.ejs"}).render(resObj);
+							$('#content').html(table);
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

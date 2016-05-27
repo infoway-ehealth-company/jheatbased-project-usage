@@ -1,0 +1,20 @@
+<table>
+	<thead>
+		<tr>
+			<td>Fun&ccedil;&atilde;o</td>
+			<td>Se&ccedil;&atilde;o</td>
+			<td>Fluxo</td>
+			<td>Requisi&ccedil;&otilde;es</td>
+		</tr>	
+	</thead>
+	<tbody>
+		<% for(i=0; i< outcome.length; i++){ %>
+			<tr>
+				<td><%= outcome[i].funcao %></td>
+				<td><%= outcome[i].secao %></td>
+				<td><%= outcome[i].fluxo %></td>
+				<td><%= outcome[i].requisicoes %></td>
+			</tr>
+		<% } %>
+	</tbody>
+</table>

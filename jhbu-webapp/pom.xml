@@ -36,6 +36,6 @@
   </dependencies>
   
   <build>
-    <finalName>ihealth-usage</finalName>
+    <finalName>jheat-based-system-usage</finalName>
   </build>
 </project>

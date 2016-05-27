@@ -16,19 +16,20 @@ public class RequestResponseFormatTest {
 
 	@Test
 	public void testResponseFormat() throws JsonProcessingException{
+		String projId = "projId";
 		UsageData data1 = new UsageData("faturista", "cobranca", "cobrardevedor");
 		UsageData data2 = new UsageData("regulador", "regulacao", "regularGuia");
 		UsageData data3 = new UsageData("regulador", "regulacao", "regularGuia");
 		UsageData data4 = new UsageData("regulador", "regulacao", "regularGuia");
 		AppManager appManager = AppManager.getInstance();
-		appManager.storeUsageData(data1);
-		appManager.storeUsageData(data2);
-		appManager.storeUsageData(data3);
-		appManager.storeUsageData(data4);
+		appManager.storeUsageData(projId, data1);
+		appManager.storeUsageData(projId, data2);
+		appManager.storeUsageData(projId, data3);
+		appManager.storeUsageData(projId, data4);
 		Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();;
 //		Type type = new TypeToken<Map<UsageData, BigInteger>>() {}.getType();
 //		String json = new Gson().toJson(appManager.getStats(), type);
-		String json  = gson.toJson(appManager.getStats().values());
+		String json  = gson.toJson(appManager.getStats(projId).values());
 		
 //		SimpleModule sm = new SimpleModule();
 //		ObjectMapper om = new ObjectMapper();
