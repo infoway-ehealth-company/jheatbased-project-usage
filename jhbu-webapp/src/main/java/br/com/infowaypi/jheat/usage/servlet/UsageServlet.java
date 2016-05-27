@@ -1,11 +1,12 @@
 package br.com.infowaypi.jheat.usage.servlet;
 
-import static br.com.infowaypi.jheat.usage.api.UsageData.FLUXO;
-import static br.com.infowaypi.jheat.usage.api.UsageData.FUNCAO;
-import static br.com.infowaypi.jheat.usage.api.UsageData.SECAO;
+//import static br.com.infowaypi.jheat.usage.api.UsageData.FLUXO;
+//import static br.com.infowaypi.jheat.usage.api.UsageData.FUNCAO;
+//import static br.com.infowaypi.jheat.usage.api.UsageData.SECAO;
+import static br.com.infowaypi.jheat.usage.api.UsageData.PROJECT_ID;
+import static br.com.infowaypi.jheat.usage.api.UsageData.DATA;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -25,21 +26,22 @@ public class UsageServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String funcao = req.getParameter(FUNCAO);
-		String secao = req.getParameter(SECAO);
-		String fluxo = req.getParameter(FLUXO);
-		UsageData usageData = new UsageData(funcao, secao, fluxo);
-		boolean result = AppManager.getInstance().storeUsageData(usageData );
-		resp.getWriter().write(new Gson().toJson(new Result( String.valueOf(result), 
+		String projId = req.getParameter(PROJECT_ID);
+		String data = req.getParameter(DATA);
+		Gson gson = new Gson();
+		UsageData usageData = gson.fromJson(data, UsageData.class);//TODO verificar se os tres parametros foram passados e passados da forma correta 
+//		String funcao = req.getParameter(FUNCAO);
+//		String secao = req.getParameter(SECAO);
+//		String fluxo = req.getParameter(FLUXO);
+		boolean result = AppManager.getInstance().storeUsageData(projId, usageData );
+		resp.getWriter().write(gson.toJson(new Result( String.valueOf(result), 
 				HttpServletResponse.SC_OK, usageData)));
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<UsageData, BigInteger> stats = AppManager.getInstance().getStats();
-		String json = new Gson().toJson(stats);
-		resp.getWriter().write(json);
+		String projId = req.getParameter(PROJECT_ID);
+		Map<Integer, UsageData> stats = AppManager.getInstance().getStats(projId);
+		resp.getWriter().write( new Gson().toJson(new Result("OK", HttpServletResponse.SC_OK, stats.values())));
 	}
-
-	
 }

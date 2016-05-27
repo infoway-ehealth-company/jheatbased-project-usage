@@ -12,15 +12,15 @@ import br.com.infowaypi.jheat.usage.api.UsageData;
  * Contém o mapa com dados estatísticos acumulados dentro do ciclo. Dado que este projeto não utiliza banco de dados, com vista à simplicidade,
  * o ciclo de storage dos dados é iniciado com o lançamento do container de aplicação e finaliza com o desligamento deste.
  * 
- * @since 28/03/2015
+ * @since 28/03/2016
  */
-class UsageStorage extends Observable{
+public class UsageStorage extends Observable{
 	
 	/**
 	 * Mapa para gravação das estatísticas dos respectivos fluxos. Possui tamanho máximo definido - para limite de uso de memória -
 	 * permitindo um total de 100 features mapeadas.
 	 */
-	private Map<UsageData, BigInteger> stats = new HashMap<UsageData, BigInteger>();
+	private Map<Integer, UsageData> stats = new HashMap<Integer, UsageData>();
 	/**
 	 * Data de início da contagem de acessos. Atribuída uma vez, quando da inicialização do container de aplicação e instanciação
 	 * do singleton UsageStorage.
@@ -37,28 +37,36 @@ class UsageStorage extends Observable{
 	 */
 	private int maxAcc;
 	
-	public boolean storeUsageData(UsageData usageData){
+	protected boolean storeUsageData(UsageData usageData){
+		boolean retVal = false;
 		synchronized (stats) {
-			BigInteger value = this.stats.containsKey(usageData) ? stats.get(usageData).add(BigInteger.valueOf(1l)) : BigInteger.valueOf(1l);
-			stats.put(usageData, value);
+			int key = usageData.hashCode();
+			UsageData data = this.stats.get(key);
+			if(data != null){
+				data.setRequisicoes(data.getRequisicoes().add(BigInteger.valueOf(1l)));
+			} else {
+				usageData.setRequisicoes(usageData.getRequisicoes().add(BigInteger.valueOf(1l)));
+				stats.put(key, usageData);
+			}
+			retVal = true;
 			acc++;
 			if(acc >= maxAcc){
 				notifyObservers();
 				acc = 0;
 			}
 		}
-		return true;
+		return retVal;
 	}
 	
-	public Map<UsageData, BigInteger> getStats(){
+	protected Map<Integer, UsageData> getStats(){
 		return this.stats;
 	}
 
-	public Date getEndDate() {
+	protected Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	protected void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

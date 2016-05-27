@@ -1,14 +1,25 @@
 package br.com.infowaypi.jheat.usage.api;
 
+import java.math.BigInteger;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.google.gson.Gson;
+
+
 public class UsageData {
 
 	public static final String FUNCAO = "funcao";
 	public static final String SECAO = "secao";
 	public static final String FLUXO = "fluxo";
+	public static final String PROJECT_ID = "project-id";
+	public static final String DATA = "data";
+	public static final String SEPARATOR = ",";
 
 	private String funcao;
 	private String secao;
 	private String fluxo;
+	private BigInteger requisicoes = BigInteger.ZERO;
 
 	public UsageData() {
 		super();
@@ -45,6 +56,14 @@ public class UsageData {
 		this.fluxo = fluxo;
 	}
 
+	public BigInteger getRequisicoes() {
+		return requisicoes;
+	}
+
+	public void setRequisicoes(BigInteger requisicoes) {
+		this.requisicoes = requisicoes;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof UsageData))
@@ -61,8 +80,19 @@ public class UsageData {
 
 	@Override
 	public int hashCode() {
-		
-		return super.hashCode();
+		return new HashCodeBuilder(17, 37).append(this.funcao).append(this.secao).append(this.fluxo).toHashCode();
 	}
-	
+
+	@Override
+	public String toString() {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append(FUNCAO+":"+this.funcao);
+//		sb.append(SEPARATOR );
+//		sb.append(SECAO+":"+this.secao);
+//		sb.append(SEPARATOR );
+//		sb.append(FLUXO+":"+this.fluxo);
+//		return sb.toString();
+		return new Gson().toJson(this);
+	}
+
 }
