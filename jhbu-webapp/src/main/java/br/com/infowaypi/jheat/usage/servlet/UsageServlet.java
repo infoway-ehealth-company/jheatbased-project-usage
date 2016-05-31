@@ -30,9 +30,6 @@ public class UsageServlet extends HttpServlet {
 		String data = req.getParameter(DATA);
 		Gson gson = new Gson();
 		UsageData usageData = gson.fromJson(data, UsageData.class);//TODO verificar se os tres parametros foram passados e passados da forma correta 
-//		String funcao = req.getParameter(FUNCAO);
-//		String secao = req.getParameter(SECAO);
-//		String fluxo = req.getParameter(FLUXO);
 		boolean result = AppManager.getInstance().storeUsageData(projId, usageData );
 		resp.getWriter().write(gson.toJson(new Result( String.valueOf(result), 
 				HttpServletResponse.SC_OK, usageData)));
